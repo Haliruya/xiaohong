@@ -1,0 +1,72 @@
+class Player {             ////玩家类
+	string name;           
+	char map[H][W];     //地图大小H*W
+	Block* ptr;        //指向方块类
+	char s, x, z, y;    //////（区分玩家）操作方式
+	/////判断能不能向下/////
+	bool checkDown();
+	/////判断能不能向左/////
+	bool checkLeft();
+	/////判断能不能向右/////
+	bool checkRight();
+	/////判断能不能变形/////
+	bool checkTransform();
+	/////左移//////
+	void moveLeft();
+	/////右移/////
+	void moveRight();
+	/////下移/////
+	void moveDown();
+	/////方块到底后将方块贴入地图/////
+	void blockIn();
+public:
+	/////初始化地图+指针指方块+生成方块+初始化方块所在位置//////
+	Player(string n , Block* a,char b,char c,char d,char e);
+	/////接受键盘操作/////
+	void getMessage(char m);
+	/////判断有无消行并消行（返回所消行数）/////
+	int CheckAndReplace(); 
+	/////底下随机增加一行////
+	void Add();
+	////判断是否输了////
+	bool checkLose();
+	/////打印地图////
+	void Print();
+};
+class Block {
+private:
+	int x,y;/////当前方块在地图中的位置/////
+	char block[4][4];//当前方块//
+	char nextBlock[4][4];//下一个方块
+	int stateNext;///////////4代表长条或田字块（特殊处理），3代表其他方块
+	int stateNow;///////当前方块状态（意义同上-
+	////生成方块////
+	void Create();
+	///////////把下一个方块贴到当前方块，再生成下一个方块
+	void createNow(int a,int b);
+	/////逆时针旋转变形/////
+	void transform(int a = 1);
+	////打印下一个////
+	void printNext();
+public:
+	///////随机生成下一个方块/////////
+	Block();
+	////////玩家类是方块类的friend///////
+	friend Player;
+};
+class Game {        /////全局/////                   ///////考虑单人模式在这里切换？？？    （还未开发）
+private:
+	////游戏进行的时间////？？不知道有没有必要
+	int time;
+	////提示语////----------------------------待扩充
+	string tip[3];
+public:
+	////初始化提示语////
+	Game();
+	/////全局暂停（按任意键继续）/////
+	void stop();
+	////打印提示语////
+	void PRINT(int x);
+};
+///////////////////////////////////////////？？？渲染？？？///////////////////////////////////////////////
+class ////还没呢
